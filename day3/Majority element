@@ -1,0 +1,12 @@
+int majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        unordered_map<int,int> m;
+        for(auto it : nums){
+            m[it]++;
+        }
+        int ans = 0;
+        for(auto [ele, freq] : m){
+            if(freq > n/2) ans = ele;
+        }
+        return ans;
+    }
