@@ -1,0 +1,42 @@
+queue<int> q1, q2;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        q1.push(x);
+    }
+    
+    int pop() {
+        int top = 0;
+        while(q1.size() > 1){
+            int top = q1.front();
+            q1.pop();
+            q2.push(top);
+        }
+        top = q1.front();
+        q1.pop();
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+        return top;
+    }
+    
+    int top() {
+        int top;
+        while(!q1.empty()){
+            top = q1.front();
+            q1.pop();
+            q2.push(top);
+        }
+        while(!q2.empty()){
+            q1.push(q2.front());
+            q2.pop();
+        }
+        return top;
+    }
+    
+    bool empty() {
+        return q1.empty();
+    }
