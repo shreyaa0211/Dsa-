@@ -1,0 +1,11 @@
+char firstRep (string s)
+    {
+        unordered_map<char, int> m;
+        for(auto it : s){
+            m[it]++;
+        }
+        for(auto ch : s){
+            if(m[ch] > 1) return ch;
+        }
+        return '#';
+    }
