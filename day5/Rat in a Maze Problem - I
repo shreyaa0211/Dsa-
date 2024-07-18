@@ -1,0 +1,56 @@
+int n;
+    
+    bool isValid(int i, int j, vector<vector<int>>& vis, vector<vector<int>>&mat){
+        if(i>=0 && i<n && j>=0 && j<n && !vis[i][j] && mat[i][j] != 0)
+            return true;
+        return false;
+    }
+    
+    void solve(int r, int c, string s, vector<string>& ans, 
+    vector<vector<int>>& vis, vector<vector<int>> &mat){
+        vis[r][c] = 1;
+        
+        if(r == n-1 && c == n-1){
+            ans.push_back(s);
+            vis[r][c] = 0;
+            return;
+        }
+        
+        if(isValid(r, c+1, vis, mat)){
+            s.push_back('R');
+            solve(r, c+1, s, ans, vis, mat);
+            s.pop_back();
+        }
+        
+        if(isValid(r+1, c, vis, mat)){
+            s.push_back('D');
+            solve(r+1, c, s, ans, vis, mat);
+            s.pop_back();
+        }
+        
+        if(isValid(r, c-1, vis, mat)){
+            s.push_back('L');
+            solve(r, c-1, s, ans, vis, mat);
+            s.pop_back();
+        }
+        
+        if(isValid(r-1, c, vis, mat)){
+            s.push_back('U');
+            solve(r-1, c, s, ans, vis, mat);
+            s.pop_back();
+        }
+        
+        vis[r][c] = 0;
+        
+    }
+    vector<string> findPath(vector<vector<int>> &mat) {
+        n = mat.size();
+        vector<string> ans;
+        if(mat[0][0] == 0 || mat[n-1][n-1] == 0) return ans;
+        vector<vector<int>> vis(n, vector<int>(n,0));
+        string s="";
+        solve(0, 0, s, ans, vis, mat);
+        
+        return ans;
+        
+    }
