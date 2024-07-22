@@ -1,0 +1,15 @@
+int getDecimalValue(ListNode* head) {
+        ListNode* temp = head;
+        string num = "";
+        while(temp){
+            num += to_string(temp->val);
+            temp = temp->next;
+        }
+        int result = 0;
+        int n = num.size();
+
+        for(int i=n-1; i>=0; i--){
+            result += ((num[i]-'0') * pow(2, n-1-i));
+        }
+        return result;
+    }
