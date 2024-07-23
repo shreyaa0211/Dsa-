@@ -1,0 +1,34 @@
+int nthUglyNumber(int n) {
+        if (n <= 0) return 0;
+    
+        priority_queue<long, vector<long>, greater<long>> minHeap;
+        unordered_set<long> seen;
+
+        minHeap.push(1);
+        seen.insert(1);
+
+        long currentUgly = 1;
+        for (int i = 1; i <= n; ++i) {
+            currentUgly = minHeap.top();
+            minHeap.pop();
+
+            long nextUgly2 = currentUgly * 2;
+            long nextUgly3 = currentUgly * 3;
+            long nextUgly5 = currentUgly * 5;
+
+            if (seen.find(nextUgly2) == seen.end()) {
+                minHeap.push(nextUgly2);
+                seen.insert(nextUgly2);
+            }
+            if (seen.find(nextUgly3) == seen.end()) {
+                minHeap.push(nextUgly3);
+                seen.insert(nextUgly3);
+            }
+            if (seen.find(nextUgly5) == seen.end()) {
+                minHeap.push(nextUgly5);
+                seen.insert(nextUgly5);
+            }
+        }
+
+        return static_cast<int>(currentUgly);
+    }
